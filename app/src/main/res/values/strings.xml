@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GrocerySavingsFinder</string>
+    <string name="item_name">Name of Item</string>
+    <string name="item_deal">Deal on Item</string>
+    <string name="item_deal_label">Deal:</string>
+    <string name="deal_expire">Date of Expiration</string>
+    <string name="deal_expire_label">Expires: </string>
+    <string name="deal_store">Store Available At</string>
+    <string name="deal_store_label">Available at: </string>
+    <string name="notes_section">Special Notes</string>
+    <string name="notes_section_label">Special Notes:</string>
+</resources>
