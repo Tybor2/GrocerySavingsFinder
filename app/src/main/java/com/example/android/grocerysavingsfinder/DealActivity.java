@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class DealActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_DEAL_ID =
+    private static final String EXTRA_DEAL_ID =
             "com.examplle.android.grocerysavingsfinder.deal_id";
 
     public static Intent newIntent(Context packageContext, UUID dealId){
@@ -21,6 +21,8 @@ public class DealActivity extends SingleFragmentActivity {
     }
     @Override
     protected Fragment createFragment() {
-        return new DealFragment();
+        UUID dealId = (UUID) getIntent()
+                .getSerializableExtra(EXTRA_DEAL_ID);
+        return DealFragment.newInstance(dealId);
     }
 }

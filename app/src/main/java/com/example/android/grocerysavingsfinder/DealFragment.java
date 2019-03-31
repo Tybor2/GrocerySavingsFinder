@@ -13,15 +13,26 @@ import android.widget.TextView;
 import java.util.UUID;
 
 public class DealFragment extends Fragment {
+
+    private static final String ARG_DEAL_ID = "deal_id";
+
     private Deal mDeal;
     private TextView mNameField;
     private TextView mDealField;
 
+    public static DealFragment newInstance(UUID dealId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_DEAL_ID, dealId);
+
+        DealFragment fragment = new DealFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID dealId = (UUID) getActivity().getIntent()
-                .getSerializableExtra(DealActivity.EXTRA_DEAL_ID);
+        UUID dealId = (UUID) getArguments().getSerializable(ARG_DEAL_ID);
         mDeal = DealCollection.get(getActivity()).getDeal(dealId);
     }
 

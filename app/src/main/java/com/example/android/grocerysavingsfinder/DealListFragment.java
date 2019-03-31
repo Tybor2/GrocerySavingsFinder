@@ -32,12 +32,21 @@ public class DealListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         DealCollection dealCollection = DealCollection.get(getActivity());
         List<Deal> deals = dealCollection.getDeal();
-
-        mAdapter = new DealAdapter(deals);
-        mDealRecyclerView.setAdapter(mAdapter);
+        if(mAdapter == null) {
+            mAdapter = new DealAdapter(deals);
+            mDealRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class DealHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
