@@ -30,7 +30,7 @@ public class DealCollection {
         }
     }
 
-    public List<Deal> getDeal() {
+    public List<Deal> getDeals() {
         return mDeals;
     }
 

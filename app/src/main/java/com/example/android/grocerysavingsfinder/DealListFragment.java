@@ -40,7 +40,7 @@ public class DealListFragment extends Fragment {
 
     private void updateUI() {
         DealCollection dealCollection = DealCollection.get(getActivity());
-        List<Deal> deals = dealCollection.getDeal();
+        List<Deal> deals = dealCollection.getDeals();
         if(mAdapter == null) {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);
@@ -71,7 +71,7 @@ public class DealListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = DealActivity.newIntent(getActivity(), mDeal.getId());
+            Intent intent = DealPagerActivity.newIntent(getActivity(), mDeal.getId());
             startActivity(intent);
         }
     }
