@@ -9,4 +9,9 @@
     <string name="deal_store_label">Available at: </string>
     <string name="notes_section">Special Notes</string>
     <string name="notes_section_label">Special Notes:</string>
+    <string name="barcode_launch">Scan Barcode</string>
+    <string name="change_zip">Set Zipcode</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="show_favorites">Favorites</string>
 </resources>

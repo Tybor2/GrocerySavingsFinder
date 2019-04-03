@@ -19,6 +19,9 @@ public class DealFragment extends Fragment {
     private Deal mDeal;
     private TextView mNameField;
     private TextView mDealField;
+    private TextView mExpireTextView;
+    private TextView mStoreTextView;
+    private TextView mNotesTextView;
 
     public static DealFragment newInstance(UUID dealId) {
         Bundle args = new Bundle();
@@ -36,6 +39,13 @@ public class DealFragment extends Fragment {
         mDeal = DealCollection.get(getActivity()).getDeal(dealId);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        DealCollection.get(getActivity()).updateDeal(mDeal);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +56,14 @@ public class DealFragment extends Fragment {
 
         mDealField = (TextView) v.findViewById(R.id.deal_name);
         mDealField.setText(mDeal.getDeal());
+
+        mExpireTextView = (TextView) v.findViewById(R.id.deal_expires);
+        mStoreTextView = (TextView) v.findViewById(R.id.deal_store);
+        mNotesTextView = (TextView) v.findViewById(R.id.deal_notes);
+
+        mExpireTextView.setText(mDeal.getExpires());
+        mStoreTextView.setText(mDeal.getStore());
+        mNotesTextView.setText(mDeal.getNotes());
         return v;
     }
 }

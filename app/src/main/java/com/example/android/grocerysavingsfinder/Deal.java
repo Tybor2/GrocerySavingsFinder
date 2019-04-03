@@ -7,13 +7,17 @@ public class Deal {
     private UUID mId;
     private String mItem;
     private String mDeal;
-    private Date mExpires;
+    private String mExpires;
     private String mStore;
     private String mNotes;
 
     public Deal() {
-        mId = UUID.randomUUID();
-        mExpires = new Date();
+        this(UUID.randomUUID());
+    }
+
+    public Deal(UUID id) {
+        mId =id;
+
     }
     public UUID getId() {
         return mId;
@@ -35,11 +39,11 @@ public class Deal {
         mDeal = deal;
     }
 
-    public Date getExpires() {
+    public String getExpires() {
         return mExpires;
     }
 
-    public void setExpires(Date expires) {
+    public void setExpires(String expires) {
         mExpires = expires;
     }
 

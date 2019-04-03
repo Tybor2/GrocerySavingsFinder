@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,6 +20,12 @@ import java.util.List;
 public class DealListFragment extends Fragment {
     private RecyclerView mDealRecyclerView;
     private DealAdapter mAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -38,6 +47,36 @@ public class DealListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_deal_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /**
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                Deal deal = new Deal();
+                DealCollection.get(getActivity()).addDeal(deal);
+                Intent intent = DealPagerActivity
+                        .newIntent(getActivity(), deal.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }**/
+
+
+        DealCollection.get(getActivity()).refreshItems(getContext());
+
+            //dealCollection.refreshItems(getContext());
+
+        updateUI();
+        return true;
+    }
+
     private void updateUI() {
         DealCollection dealCollection = DealCollection.get(getActivity());
         List<Deal> deals = dealCollection.getDeals();
@@ -45,6 +84,7 @@ public class DealListFragment extends Fragment {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setDeals(deals);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -54,6 +94,9 @@ public class DealListFragment extends Fragment {
         private Deal mDeal;
         private TextView mNameTextView;
         private TextView mDealTextView;
+        private TextView mExpireTextView;
+        private TextView mStoreTextView;
+        private TextView mNotesTextView;
 
         public DealHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_deal, parent, false));
@@ -61,12 +104,18 @@ public class DealListFragment extends Fragment {
 
             mNameTextView = (TextView) itemView.findViewById(R.id.item_name);
             mDealTextView = (TextView) itemView.findViewById(R.id.item_deal);
+            mExpireTextView = (TextView) itemView.findViewById(R.id.deal_expires);
+            mStoreTextView = (TextView) itemView.findViewById(R.id.deal_store);
+            mNotesTextView = (TextView) itemView.findViewById(R.id.deal_notes);
         }
 
         public void bind(Deal deal) {
             mDeal = deal;
             mNameTextView.setText(mDeal.getItem());
             mDealTextView.setText(mDeal.getDeal());
+            /**mExpireTextView.setText(mDeal.getExpires());
+            mStoreTextView.setText(mDeal.getStore());
+            mNotesTextView.setText(mDeal.getNotes());**/
         }
 
         @Override
@@ -100,6 +149,10 @@ public class DealListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mDeals.size();
+        }
+
+        public void setDeals(List<Deal> deals) {
+            mDeals = deals;
         }
     }
 }
