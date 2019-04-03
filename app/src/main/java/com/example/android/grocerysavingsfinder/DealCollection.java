@@ -7,13 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.android.grocerysavingsfinder.database.DealCollectionHelper;
 import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
-import com.example.android.grocerysavingsfinder.database.DealDbSchema;
 import com.example.android.grocerysavingsfinder.database.DealDbSchema.DealTable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -86,7 +84,7 @@ public class DealCollection {
         String json = null;
         int size = 0;
         try {
-            InputStream is = context.getAssets().open("data.json");
+            InputStream is = context.getAssets().open("dataHT.json");
 
             size = is.available();
 
