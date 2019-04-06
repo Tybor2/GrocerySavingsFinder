@@ -7,14 +7,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DealListFragment extends Fragment {
@@ -25,6 +30,7 @@ public class DealListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Nullable
@@ -51,6 +57,24 @@ public class DealListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_deal_list, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                updateUI(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -69,17 +93,42 @@ public class DealListFragment extends Fragment {
         }**/
 
 
-        DealCollection.get(getActivity()).refreshItems(getContext());
+        //DealCollection.get(getActivity()).refreshItems(getContext());
 
             //dealCollection.refreshItems(getContext());
+        switch ( (item.getItemId())) {
+            case R.id.menu_item_search:
+                updateUI("Butter");
+                return true;
+            case R.id.refresh:
+                updateUI();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
-        updateUI();
-        return true;
+
     }
 
     private void updateUI() {
+
         DealCollection dealCollection = DealCollection.get(getActivity());
         List<Deal> deals = dealCollection.getDeals();
+        if(deals.size() == 0) {
+            dealCollection.refreshItems(getContext());
+        }
+        if(mAdapter == null) {
+            mAdapter = new DealAdapter(deals);
+            mDealRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setDeals(deals);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateUI(String searchString) {
+        DealCollection dealCollection = DealCollection.get(getActivity());
+        List<Deal> deals = dealCollection.searchDeals(searchString);
         if(mAdapter == null) {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);

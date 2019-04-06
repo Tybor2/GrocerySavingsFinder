@@ -45,6 +45,7 @@ public class DealPagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Deal deal = mDeals.get(position);
+                //Deal deal = mDeals.get(0);
                 return DealFragment.newInstance(deal.getId());
             }
 
@@ -54,6 +55,7 @@ public class DealPagerActivity extends AppCompatActivity {
             }
         });
 
+        //Pulls up correct deal on click
         for(int i = 0; i < mDeals.size(); i++) {
             if(mDeals.get(i).getId().equals(dealId)) {
                 mViewPager.setCurrentItem(i);

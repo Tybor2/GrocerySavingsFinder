@@ -80,6 +80,30 @@ public class DealCollection {
         }
     }
 
+    public List<Deal> searchDeals(String queryString) {
+        queryString = "%" + queryString + "%";
+        List<Deal> deals = new ArrayList<>();
+        String [] columns = new String[]{ "ITEM", "STORE", "DEAL"};
+        //Cursor cursor = mDatabase.query("Deals", columns, "some_col like '%" + queryString + "%'", null, null, null, null);
+        DealCursorWrapper cursor = queryDeals(
+                DealTable.Cols.ITEM + " LIKE ?",
+                new String[] {queryString}
+        );
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                deals.add(cursor.getDeal());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return deals;
+
+
+    }
+
     public void refreshItems(Context context){
         String json = null;
         int size = 0;
@@ -121,6 +145,8 @@ public class DealCollection {
         }
         //return null;
     }
+
+
 
     public void updateDeal(Deal deal) {
         String uuidString = deal.getId().toString();
