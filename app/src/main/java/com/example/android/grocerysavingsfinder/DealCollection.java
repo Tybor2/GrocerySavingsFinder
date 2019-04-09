@@ -83,11 +83,13 @@ public class DealCollection {
     public List<Deal> searchDeals(String queryString) {
         queryString = "%" + queryString + "%";
         List<Deal> deals = new ArrayList<>();
-        String [] columns = new String[]{ "ITEM", "STORE", "DEAL"};
+        String[] columns = new String[]{ "ITEM", "STORE", "DEAL"};
         //Cursor cursor = mDatabase.query("Deals", columns, "some_col like '%" + queryString + "%'", null, null, null, null);
         DealCursorWrapper cursor = queryDeals(
-                DealTable.Cols.ITEM + " LIKE ?",
-                new String[] {queryString}
+                DealTable.Cols.ITEM  + " LIKE ? OR " +
+                        DealTable.Cols.STORE + " Like ? OR " +
+                        DealTable.Cols.DEAL + " LIKE ?",
+                new String[] {queryString, queryString, queryString}
         );
 
         try {
@@ -161,6 +163,20 @@ public class DealCollection {
         Cursor cursor = mDatabase.query(
                 DealTable.NAME,
                 null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+
+        return new DealCursorWrapper(cursor);
+    }
+
+    private DealCursorWrapper queryDeals(String[] columns, String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                DealTable.NAME,
+                columns,
                 whereClause,
                 whereArgs,
                 null,
