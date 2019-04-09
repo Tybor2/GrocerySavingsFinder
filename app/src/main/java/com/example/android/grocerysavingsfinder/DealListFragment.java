@@ -64,7 +64,7 @@ public class DealListFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                QueryPreferences.setStoredQuery(getActivity(), query);
                 updateUI(query);
                 return true;
             }
@@ -97,8 +97,12 @@ public class DealListFragment extends Fragment {
 
             //dealCollection.refreshItems(getContext());
         switch ( (item.getItemId())) {
-            case R.id.menu_item_search:
+            /**case R.id.menu_item_search:
                 updateUI("Butter");
+                return true;**/
+            case R.id.menu_item_clear:
+                QueryPreferences.setStoredQuery(getActivity(), null);
+                updateUI();
                 return true;
             case R.id.refresh:
                 updateUI();
@@ -113,7 +117,13 @@ public class DealListFragment extends Fragment {
     private void updateUI() {
 
         DealCollection dealCollection = DealCollection.get(getActivity());
-        List<Deal> deals = dealCollection.getDeals();
+        //List<Deal> deals = dealCollection.getDeals();
+        String query = QueryPreferences.getStoredQuery(getActivity());
+        List<Deal> deals;
+        if(query == null)
+            deals = dealCollection.getDeals();
+        else
+            deals = dealCollection.searchDeals(query);
         if(deals.size() == 0) {
             dealCollection.refreshItems(getContext());
         }
