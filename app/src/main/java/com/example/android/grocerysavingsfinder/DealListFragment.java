@@ -106,7 +106,7 @@ public class DealListFragment extends Fragment {
             //dealCollection.refreshItems(getContext());
         switch ( (item.getItemId())) {
             /**case R.id.menu_item_search:
-                updateUI("Butter");
+                updateUI(QueryPreferences.getStoredQuery(getActivity()));
                 return true;**/
             case R.id.menu_item_clear:
                 QueryPreferences.setStoredQuery(getActivity(), null);
