@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -61,17 +62,22 @@ public class DealListFragment extends Fragment {
         final MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 QueryPreferences.setStoredQuery(getActivity(), query);
+                searchView.onActionViewCollapsed();
                 updateUI(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                /**if(searchView.getQuery().length() == 0){
+                    updateUI();
+                }**/
                 return false;
             }
         });
@@ -83,6 +89,19 @@ public class DealListFragment extends Fragment {
                 searchView.setQuery(query, false);
             }
         });
+
+        /**searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                updateUI();
+                return false;
+            }
+        });**/
+
+    }
+
+    public void onBackPressed() {
+
     }
 
     @Override
@@ -127,7 +146,7 @@ public class DealListFragment extends Fragment {
         DealCollection dealCollection = DealCollection.get(getActivity());
         //List<Deal> deals = dealCollection.getDeals();
         String query = QueryPreferences.getStoredQuery(getActivity());
-        List<Deal> deals;
+        List<Deal> deals = dealCollection.getDeals();
         if(query == null)
             deals = dealCollection.getDeals();
         else
@@ -147,6 +166,7 @@ public class DealListFragment extends Fragment {
     private void updateUI(String searchString) {
         DealCollection dealCollection = DealCollection.get(getActivity());
         List<Deal> deals = dealCollection.searchDeals(searchString);
+
         if(mAdapter == null) {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);

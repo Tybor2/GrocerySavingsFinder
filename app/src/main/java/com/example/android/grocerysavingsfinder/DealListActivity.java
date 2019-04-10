@@ -1,6 +1,7 @@
 package com.example.android.grocerysavingsfinder;
 
 import android.support.v4.app.Fragment;
+import android.widget.SearchView;
 
 public class DealListActivity extends SingleFragmentActivity {
 
@@ -8,4 +9,6 @@ public class DealListActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return new DealListFragment();
     }
+
+
 }

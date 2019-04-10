@@ -109,6 +109,7 @@ public class DealCollection {
     public void refreshItems(Context context){
         String json = null;
         int size = 0;
+
         for (int j = 0; j < 2; j++) {
             try {
                 InputStream is;
