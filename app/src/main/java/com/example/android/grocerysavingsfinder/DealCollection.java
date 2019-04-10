@@ -109,41 +109,46 @@ public class DealCollection {
     public void refreshItems(Context context){
         String json = null;
         int size = 0;
-        try {
-            InputStream is = context.getAssets().open("dataHT.json");
+        for (int j = 0; j < 2; j++) {
+            try {
+                InputStream is;
+                if(j == 0)
+                    is = context.getAssets().open("dataHT.json");
+                else
+                    is = context.getAssets().open("dataPublix.json");
+                size = is.available();
 
-            size = is.available();
+                byte[] buffer = new byte[size];
 
-            byte[] buffer = new byte[size];
+                is.read(buffer);
 
-            is.read(buffer);
+                is.close();
 
-            is.close();
-
-            json = new String(buffer, "UTF-8");
+                json = new String(buffer, "UTF-8");
 
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
 
-        }
-
-        try {
-            JSONObject jsonBody = new JSONObject(json);
-
-            for(int i = 0; i < size; i++) {
-                Deal deal = new Deal();
-                JSONObject jsonItem = (jsonBody.getJSONObject(String.valueOf(i)));
-                deal.setItem(jsonItem.getString("item"));
-                deal.setDeal(jsonItem.getString("deal"));
-                deal.setExpires(jsonItem.getString("expires"));
-                deal.setStore(jsonItem.getString("store"));
-                deal.setNotes(jsonItem.getString("notes"));
-                addDeal(deal);
             }
 
-        } catch (JSONException je) {
-            je.printStackTrace();
+            try {
+                JSONObject jsonBody = new JSONObject(json);
+
+                for(int i = 0; i < size; i++) {
+                    Deal deal = new Deal();
+                    JSONObject jsonItem = (jsonBody.getJSONObject(String.valueOf(i)));
+                    deal.setItem(jsonItem.getString("item"));
+                    deal.setDeal(jsonItem.getString("deal"));
+                    deal.setExpires(jsonItem.getString("expires"));
+                    deal.setStore(jsonItem.getString("store"));
+                    deal.setNotes(jsonItem.getString("notes"));
+                    addDeal(deal);
+                }
+
+            } catch (JSONException je) {
+                je.printStackTrace();
+            }
         }
         //return null;
     }
