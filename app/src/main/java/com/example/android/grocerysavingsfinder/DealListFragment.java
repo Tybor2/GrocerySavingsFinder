@@ -132,6 +132,11 @@ public class DealListFragment extends Fragment {
                 updateUI();
                 return true;
             case R.id.refresh:
+                //Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
+                //startActivity(intent);
+                DealCollection dealCollection = DealCollection.get(getActivity());
+                dealCollection.refreshItems(getActivity());
+                QueryPreferences.setStoredQuery(getActivity(), null);
                 updateUI();
                 return true;
             default:
