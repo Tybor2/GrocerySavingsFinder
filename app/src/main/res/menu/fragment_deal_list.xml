@@ -7,6 +7,12 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/barcode_search"
+        android:title="Search Barcode"
+        android:icon="@drawable/barcodeicon"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/menu_item_search"
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"

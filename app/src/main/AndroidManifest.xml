@@ -7,7 +7,7 @@
 
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.**permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -28,8 +28,7 @@
         <activity
             android:name=".DealPagerActivity"
             android:parentActivityName=".DealListActivity"></activity>
-        <activity android:name=".BarcodeCaptureActivity"
-            android:label="Read Barcode"/>
+
     </application>
 
 </manifest>

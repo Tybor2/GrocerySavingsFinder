@@ -106,6 +106,13 @@ public class DealCollection {
 
     }
 
+    public List<Deal> searchCode(int code) {
+        List<Deal> deals = new ArrayList<>();
+
+        deals = searchDeals("buffalo");
+        return deals;
+    }
+
     public void refreshItems(Context context){
         String json = null;
         int size = 0;

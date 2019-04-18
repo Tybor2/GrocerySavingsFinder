@@ -1,10 +1,13 @@
 package com.example.android.grocerysavingsfinder;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,20 +20,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DealListFragment extends Fragment {
     private RecyclerView mDealRecyclerView;
     private DealAdapter mAdapter;
 
+    private static final int REQUEST_CODE = 0;
+    private static final String TAG = "DealListFragment";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        //new FetchItemsTask().execute();
 
     }
 
@@ -139,6 +148,13 @@ public class DealListFragment extends Fragment {
                 QueryPreferences.setStoredQuery(getActivity(), null);
                 updateUI();
                 return true;
+            case R.id.barcode_search:
+                FragmentManager manager = getFragmentManager();
+                BarcodeNumFragment dialog = new BarcodeNumFragment()
+                        .newInstance(0);
+                dialog.setTargetFragment(DealListFragment.this, REQUEST_CODE);
+                dialog.show(manager, "Enter Barcode");
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -245,6 +261,43 @@ public class DealListFragment extends Fragment {
 
         public void setDeals(List<Deal> deals) {
             mDeals = deals;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if(requestCode == REQUEST_CODE) {
+            String code = data.getSerializableExtra(BarcodeNumFragment.EXTRA_CODE).toString();
+            new FetchItemsTask().execute(code);
+            updateUI("buffalo");
+        }
+    }
+
+    private class FetchItemsTask extends AsyncTask<String, Void, String> {
+        String code = "";
+
+        @Override
+        protected String doInBackground(String... code) {
+            for (String c: code) {
+                return new BarcodeCatcher().fetchItems(c);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if(s == null){
+                Toast.makeText(getActivity(), "Barcode Not Found",
+                        Toast.LENGTH_SHORT).show();
+                //updateUI();
+            }else {
+                Log.i(TAG, "THis is the returned value: " + s);
+                updateUI(s);
+            }
         }
     }
 }
