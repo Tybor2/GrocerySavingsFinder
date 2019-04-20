@@ -120,9 +120,9 @@ public class DealCollection {
         String TABLE_NAME = "Deals";
         Context con = context.getApplicationContext();
         //context.deleteDatabase("Deals");
-        mDatabase = new DealCollectionHelper(con)
+        /**mDatabase = new DealCollectionHelper(con)
                 .getWritableDatabase();
-        mDatabase.execSQL("delete from "+ TABLE_NAME);
+        mDatabase.execSQL("delete from "+ TABLE_NAME);**/
         for (int j = 0; j < 2; j++) {
             try {
                 InputStream is;

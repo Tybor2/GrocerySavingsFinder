@@ -187,7 +187,7 @@ public class DealListFragment extends Fragment {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);
         } else {
-           // mAdapter.setDeals(deals);
+            mAdapter.setDeals(deals);
             mAdapter.notifyDataSetChanged();
         }
     }
