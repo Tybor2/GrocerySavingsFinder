@@ -11,6 +11,8 @@ public class Deal {
     private String mStore;
     private String mNotes;
 
+    private String mImage;
+
     public Deal() {
         this(UUID.randomUUID());
     }
@@ -61,5 +63,13 @@ public class Deal {
 
     public void setNotes(String notes) {
         mNotes = notes;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public void setImage(String image) {
+        mImage = image;
     }
 }

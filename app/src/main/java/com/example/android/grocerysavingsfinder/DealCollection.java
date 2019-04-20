@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class DealCollection {
@@ -156,6 +157,12 @@ public class DealCollection {
                     deal.setExpires(jsonItem.getString("expires"));
                     deal.setStore(jsonItem.getString("store"));
                     deal.setNotes(jsonItem.getString("notes"));
+                    deal.setImage(jsonItem.getString("imageURL"));
+                    /**if(jsonItem.getString("store") != "Publix") {
+                        deal.setImage(jsonItem.getString("imageURL"));
+                    }else {
+                        deal.setImage("https://a277cd14703f30274b11-9b2d31aea35db21db0dc185237f55bd4.ssl.cf1.rackcdn.com//sm_4334889.jpg");
+                    }**/
                     addDeal(deal);
                 }
 
@@ -213,6 +220,7 @@ public class DealCollection {
         values.put(DealTable.Cols.EXPIRE, deal.getExpires());
         values.put(DealTable.Cols.STORE, deal.getStore());
         values.put(DealTable.Cols.NOTES, deal.getNotes());
+        values.put(DealTable.Cols.IMAGE, deal.getImage());
 
         return values;
     }

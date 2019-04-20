@@ -19,10 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -208,6 +210,7 @@ public class DealListFragment extends Fragment {
         private Deal mDeal;
         private TextView mNameTextView;
         private TextView mDealTextView;
+        private ImageView mImageView;
         private TextView mExpireTextView;
         private TextView mStoreTextView;
         private TextView mNotesTextView;
@@ -218,6 +221,7 @@ public class DealListFragment extends Fragment {
 
             mNameTextView = (TextView) itemView.findViewById(R.id.item_name);
             mDealTextView = (TextView) itemView.findViewById(R.id.item_deal);
+            mImageView = (ImageView) itemView.findViewById(R.id.deal_image);
             mExpireTextView = (TextView) itemView.findViewById(R.id.deal_expires);
             mStoreTextView = (TextView) itemView.findViewById(R.id.deal_store);
             mNotesTextView = (TextView) itemView.findViewById(R.id.deal_notes);
@@ -227,6 +231,9 @@ public class DealListFragment extends Fragment {
             mDeal = deal;
             mNameTextView.setText(mDeal.getItem());
             mDealTextView.setText(mDeal.getDeal());
+            Picasso.get().load(mDeal.getImage())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(mImageView);
             /**mExpireTextView.setText(mDeal.getExpires());
             mStoreTextView.setText(mDeal.getStore());
             mNotesTextView.setText(mDeal.getNotes());**/

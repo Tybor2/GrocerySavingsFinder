@@ -21,6 +21,7 @@ public class DealCursorWrapper extends CursorWrapper {
         String expires = getString(getColumnIndex(DealTable.Cols.EXPIRE));
         String store = getString(getColumnIndex(DealTable.Cols.STORE));
         String notes = getString(getColumnIndex(DealTable.Cols.NOTES));
+        String image = getString(getColumnIndex(DealTable.Cols.IMAGE));
 
         Deal d = new Deal(UUID.fromString(uuidString));
         d.setItem(item);
@@ -28,6 +29,7 @@ public class DealCursorWrapper extends CursorWrapper {
         d.setExpires(expires);
         d.setStore(store);
         d.setNotes(notes);
+        d.setImage(image);
 
         return d;
     }

@@ -11,6 +11,7 @@ public class DealDbSchema {
             public static final String EXPIRE = "expires";
             public static final String STORE = "store";
             public static final String NOTES = "notes";
+            public static final String IMAGE = "image";
         }
     }
 }

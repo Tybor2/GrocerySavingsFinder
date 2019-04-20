@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
@@ -22,6 +25,7 @@ public class DealFragment extends Fragment {
     private TextView mExpireTextView;
     private TextView mStoreTextView;
     private TextView mNotesTextView;
+    private ImageView mItemImageView;
 
     public static DealFragment newInstance(UUID dealId) {
         Bundle args = new Bundle();
@@ -60,10 +64,15 @@ public class DealFragment extends Fragment {
         mExpireTextView = (TextView) v.findViewById(R.id.deal_expires);
         mStoreTextView = (TextView) v.findViewById(R.id.deal_store);
         mNotesTextView = (TextView) v.findViewById(R.id.deal_notes);
+        mItemImageView = (ImageView) v.findViewById(R.id.item_image);
 
         mExpireTextView.setText(mDeal.getExpires());
         mStoreTextView.setText(mDeal.getStore());
         mNotesTextView.setText(mDeal.getNotes());
+        Picasso.get().load(mDeal.getImage())
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(mItemImageView);
+
         return v;
     }
 }

@@ -24,7 +24,8 @@ public class DealCollectionHelper extends SQLiteOpenHelper {
                 DealTable.Cols.DEAL + ", " +
                 DealTable.Cols.EXPIRE + ", " +
                 DealTable.Cols.STORE + ", " +
-                DealTable.Cols.NOTES + ")"
+                DealTable.Cols.NOTES + "," +
+                DealTable.Cols.IMAGE + ")"
         );
 
     }
