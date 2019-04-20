@@ -156,7 +156,7 @@ public class DealListFragment extends Fragment {
                 dialog.show(manager, "Enter Barcode");
                 return true;
             case R.id.filter_ht:
-                updateUI("harris teeter");
+                updateUI("Harris Teeter");
                 return true;
             case R.id.filter_publix:
                 updateUI("Publix");
