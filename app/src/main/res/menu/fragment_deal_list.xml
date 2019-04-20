@@ -23,5 +23,25 @@
         android:title="Clear Search"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/filter"
+        android:title="Filter"
+        app:showAsAction="never" >
+
+        <menu>
+
+            <item
+                android:id="@+id/filter_ht"
+                android:title="Harris Teeter"/>
+
+            <item
+                android:id="@+id/filter_publix"
+                android:title="Publix"/>
+        </menu>
+
+    </item>
+
+
+
 
 </menu>

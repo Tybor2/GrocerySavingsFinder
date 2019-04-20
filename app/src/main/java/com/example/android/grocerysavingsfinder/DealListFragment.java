@@ -154,7 +154,13 @@ public class DealListFragment extends Fragment {
                         .newInstance(0);
                 dialog.setTargetFragment(DealListFragment.this, REQUEST_CODE);
                 dialog.show(manager, "Enter Barcode");
-
+                return true;
+            case R.id.filter_ht:
+                updateUI("harris teeter");
+                return true;
+            case R.id.filter_publix:
+                updateUI("Publix");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,7 +185,7 @@ public class DealListFragment extends Fragment {
             mAdapter = new DealAdapter(deals);
             mDealRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setDeals(deals);
+           // mAdapter.setDeals(deals);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -273,19 +279,19 @@ public class DealListFragment extends Fragment {
         if(requestCode == REQUEST_CODE) {
             String code = data.getSerializableExtra(BarcodeNumFragment.EXTRA_CODE).toString();
             new FetchItemsTask().execute(code);
-            updateUI("buffalo");
+            //updateUI("buffalo");
         }
     }
 
     private class FetchItemsTask extends AsyncTask<String, Void, String> {
-        String code = "";
 
         @Override
         protected String doInBackground(String... code) {
-            for (String c: code) {
+            return new BarcodeCatcher().fetchItems(code[0]);
+            /**for (String c: code) {
                 return new BarcodeCatcher().fetchItems(c);
             }
-            return null;
+            return null;**/
         }
 
         @Override

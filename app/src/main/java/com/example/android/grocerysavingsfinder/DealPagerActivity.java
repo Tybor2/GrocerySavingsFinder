@@ -59,8 +59,10 @@ public class DealPagerActivity extends AppCompatActivity {
         for(int i = 0; i < mDeals.size(); i++) {
             if(mDeals.get(i).getId().equals(dealId)) {
                 mViewPager.setCurrentItem(i);
+                //finish();
                 break;
             }
         }
+
     }
 }
