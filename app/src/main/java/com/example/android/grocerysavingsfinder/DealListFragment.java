@@ -8,10 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,17 +24,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class DealListFragment extends Fragment {
     private RecyclerView mDealRecyclerView;
     private DealAdapter mAdapter;
+    private SwipeRefreshLayout swipeContainer;
 
     private static final int REQUEST_CODE = 0;
     private static final String TAG = "DealListFragment";
@@ -51,12 +49,23 @@ public class DealListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deal_list, container, false);
 
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                DealCollection.get(getContext()).refreshItems(getContext());
+                QueryPreferences.setStoredQuery(getActivity(), null);
+                updateUI();
+                swipeContainer.setRefreshing(false);
+            }
+        });
         mDealRecyclerView = (RecyclerView) view
                 .findViewById(R.id.deal_recycler_view);
         mDealRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mDealRecyclerView.addItemDecoration(itemDecoration);
+
 
         updateUI();
 
