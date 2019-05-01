@@ -218,6 +218,19 @@ public class DealListFragment extends Fragment {
         }
     }
 
+    private void updateUI(String[] searchString) {
+        DealCollection dealCollection = DealCollection.get(getActivity());
+        List<Deal> deals = dealCollection.searchDeals(searchString);
+
+        if(mAdapter == null) {
+            mAdapter = new DealAdapter(deals);
+            mDealRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setDeals(deals);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
     private class DealHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private Deal mDeal;
@@ -303,10 +316,10 @@ public class DealListFragment extends Fragment {
         }
     }
 
-    private class FetchItemsTask extends AsyncTask<String, Void, String> {
+    private class FetchItemsTask extends AsyncTask<String, Void, String[]> {
 
         @Override
-        protected String doInBackground(String... code) {
+        protected String[] doInBackground(String... code) {
             return new BarcodeCatcher().fetchItems(code[0]);
             /**for (String c: code) {
                 return new BarcodeCatcher().fetchItems(c);
@@ -315,13 +328,13 @@ public class DealListFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String[] s) {
             if(s == null){
-                Toast.makeText(getActivity(), "Barcode Not Found",
+                Toast.makeText(getActivity(), "Barcode for " + s[0] + " or " + s[1] + " or " + s[2] + " not found",
                         Toast.LENGTH_SHORT).show();
                 //updateUI();
             }else {
-                Log.i(TAG, "THis is the returned value: " + s);
+                Log.i(TAG, "THis is the returned value: " + s[0] + " and " + s[1] + " and " + s[2]);
                 updateUI(s);
             }
         }

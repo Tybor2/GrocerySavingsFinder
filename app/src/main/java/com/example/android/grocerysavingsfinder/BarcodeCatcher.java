@@ -75,7 +75,8 @@ public class BarcodeCatcher {
         return data;**/
     }
 
-    public String fetchItems(String code) {
+    public String[] fetchItems(String code) {
+        String[] result = new String[3];
         String data = "";
         /**try {
             String url = Uri.parse("https://api.upcdatabase.org/product/")
@@ -115,9 +116,12 @@ public class BarcodeCatcher {
 
             JSONObject jsonBody = new JSONObject(data);
             JSONArray jsonItem =  (jsonBody.getJSONArray("products"));
-            String name = jsonItem.getJSONObject(0).getString("brand");
-            Log.i(TAG, "Maybe this worked" + name);
-            return name;
+            result[0] = jsonItem.getJSONObject(0).getString("brand");
+            result[1] = jsonItem.getJSONObject(0).getString("manufacturer");
+            String[] name = jsonItem.getJSONObject(0).getString("product_name").split(" ");
+            result[2] = name[0] + " " + name[1];
+            Log.i(TAG, "Maybe this worked" + result[0]);
+            return result;
 
         } catch (JSONException je) {
             je.printStackTrace();

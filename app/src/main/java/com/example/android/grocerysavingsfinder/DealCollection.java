@@ -107,6 +107,35 @@ public class DealCollection {
 
     }
 
+    public List<Deal> searchDeals(String[] queryStrings) {
+        List<Deal> deals = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            String queryString = "%" + queryStrings[i] + "%";
+
+            String[] columns = new String[]{ "ITEM", "STORE", "DEAL"};
+            //Cursor cursor = mDatabase.query("Deals", columns, "some_col like '%" + queryString + "%'", null, null, null, null);
+            DealCursorWrapper cursor = queryDeals(
+                    DealTable.Cols.ITEM  + " LIKE ? OR " +
+                            DealTable.Cols.STORE + " Like ? OR " +
+                            DealTable.Cols.DEAL + " LIKE ?",
+                    new String[] {queryString, queryString, queryString}
+            );
+
+            try {
+                cursor.moveToFirst();
+                while(!cursor.isAfterLast()) {
+                    deals.add(cursor.getDeal());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        return deals;
+
+
+    }
+
     public List<Deal> searchCode(int code) {
         List<Deal> deals = new ArrayList<>();
 
