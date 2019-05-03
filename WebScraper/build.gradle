@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('json-simple-1.1.1.jar')
+    implementation files('client-combined-3.141.59.jar')
+    implementation files('libs/libs/byte-buddy-1.8.15.jar')
+    implementation files('libs/libs/commons-exec-1.3.jar')
+    implementation files('libs/libs/guava-25.0-jre.jar')
+    implementation files('libs/libs/okhttp-3.11.0.jar')
+    implementation files('libs/libs/okio-1.14.0.jar')
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
