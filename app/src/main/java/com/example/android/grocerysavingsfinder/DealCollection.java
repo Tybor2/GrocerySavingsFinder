@@ -111,9 +111,6 @@ public class DealCollection {
         List<Deal> deals = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             String queryString = "%" + queryStrings[i] + "%";
-
-            String[] columns = new String[]{ "ITEM", "STORE", "DEAL"};
-            //Cursor cursor = mDatabase.query("Deals", columns, "some_col like '%" + queryString + "%'", null, null, null, null);
             DealCursorWrapper cursor = queryDeals(
                     DealTable.Cols.ITEM  + " LIKE ? OR " +
                             DealTable.Cols.STORE + " Like ? OR " +
@@ -136,12 +133,6 @@ public class DealCollection {
 
     }
 
-    public List<Deal> searchCode(int code) {
-        List<Deal> deals = new ArrayList<>();
-
-        deals = searchDeals("buffalo");
-        return deals;
-    }
 
     public void refreshItems(Context context){
         String json = null;
@@ -181,11 +172,11 @@ public class DealCollection {
                 for(int i = 0; i < size; i++) {
                     Deal deal = new Deal();
                     JSONObject jsonItem = (jsonBody.getJSONObject(String.valueOf(i)));
-                    deal.setItem(jsonItem.getString("item"));
-                    deal.setDeal(jsonItem.getString("deal"));
-                    deal.setExpires(jsonItem.getString("expires"));
-                    deal.setStore(jsonItem.getString("store"));
-                    deal.setNotes(jsonItem.getString("notes"));
+                    deal.setItem(jsonItem.getString("item").trim());
+                    deal.setDeal(jsonItem.getString("deal").trim());
+                    deal.setExpires(jsonItem.getString("expires").trim());
+                    deal.setStore(jsonItem.getString("store").trim());
+                    deal.setNotes(jsonItem.getString("notes").trim());
                     deal.setImage(jsonItem.getString("imageURL"));
                     /**if(jsonItem.getString("store") != "Publix") {
                         deal.setImage(jsonItem.getString("imageURL"));

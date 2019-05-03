@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GrocerySavingsFinder</string>
+    <string name="app_name">Savings Spotter</string>
     <string name="item_name">Name of Item</string>
     <string name="item_deal">Deal on Item</string>
     <string name="item_deal_label">Deal:</string>

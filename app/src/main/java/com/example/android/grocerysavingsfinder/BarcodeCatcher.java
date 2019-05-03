@@ -56,43 +56,17 @@ public class BarcodeCatcher {
         Log.i(TAG, "We here" );
         URL url1 = new URL(urlSpec);
         BufferedReader br = new BufferedReader(new InputStreamReader(url1.openStream()));
-        String str = "";
+        String str;
         String data = "";
         while (null != (str= br.readLine())) {
             data+=str;
         }
         return data;
-        //return new String(getURLBytes(urlSpec));
-        /**
-         URL url = new URL(urlSpec);
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        String str = "";
-        String data = "";
-        while (null != (str= br.readLine())) {
-            data+=str;
-        }
-        Log.i(TAG, "Received data: " + data);
-        return data;**/
     }
 
     public String[] fetchItems(String code) {
         String[] result = new String[3];
-        String data = "";
-        /**try {
-            String url = Uri.parse("https://api.upcdatabase.org/product/")
-                    .buildUpon()
-                    .appendPath(code)
-                    .appendPath(API_KEY)
-                    .build().toString();
-            Log.i(TAG, "Received url " + url);
-            data = getUrlString(url);
-            //String jsonString = getUrlString(url);
-            Log.i(TAG, "Received JSON: " + data);
-        } catch (IOException ioe) {
-            Log.e(TAG, "Failed to fetch items", ioe);
-
-            return null;
-        }**/
+        String data;
         try {
             String url = Uri.parse("https://api.barcodelookup.com/v2/products")
                     .buildUpon()
@@ -100,29 +74,19 @@ public class BarcodeCatcher {
                     .appendQueryParameter("formatted", "n")
                     .appendQueryParameter("key", API_KEY)
                     .build().toString();
-            Log.i(TAG, "Received url " + url);
             data = getUrlString(url);
-            //String jsonString = getUrlString(url);
-            Log.i(TAG, "Received JSON: " + data);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
-
             return null;
         }
-
-
-
         try {
-
             JSONObject jsonBody = new JSONObject(data);
             JSONArray jsonItem =  (jsonBody.getJSONArray("products"));
             result[0] = jsonItem.getJSONObject(0).getString("brand");
             result[1] = jsonItem.getJSONObject(0).getString("manufacturer");
             String[] name = jsonItem.getJSONObject(0).getString("product_name").split(" ");
             result[2] = name[0] + " " + name[1];
-            Log.i(TAG, "Maybe this worked" + result[0]);
             return result;
-
         } catch (JSONException je) {
             je.printStackTrace();
             Log.e(TAG, "JSON parse failed: " + je);
