@@ -257,12 +257,10 @@ public class DealListFragment extends Fragment {
             mDeal = deal;
             mNameTextView.setText(mDeal.getItem());
             mDealTextView.setText(mDeal.getDeal());
+
             Picasso.get().load(mDeal.getImage())
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.mipmap.ic_app_icon)
                     .into(mImageView);
-            /**mExpireTextView.setText(mDeal.getExpires());
-            mStoreTextView.setText(mDeal.getStore());
-            mNotesTextView.setText(mDeal.getNotes());**/
         }
 
         @Override
@@ -321,10 +319,6 @@ public class DealListFragment extends Fragment {
         @Override
         protected String[] doInBackground(String... code) {
             return new BarcodeCatcher().fetchItems(code[0]);
-            /**for (String c: code) {
-                return new BarcodeCatcher().fetchItems(c);
-            }
-            return null;**/
         }
 
         @Override
