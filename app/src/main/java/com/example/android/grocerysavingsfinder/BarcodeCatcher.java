@@ -65,6 +65,11 @@ public class BarcodeCatcher {
     }
 
     public String[] fetchItems(String code) {
+        if(code.matches("[0-9]+") == false || code.length() < 9 || code.length() > 9) {
+            Log.d(TAG, "Not a valid barcode");
+            return null;
+        }
+
         String[] result = new String[3];
         String data;
         try {

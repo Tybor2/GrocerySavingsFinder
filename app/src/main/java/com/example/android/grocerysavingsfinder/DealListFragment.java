@@ -330,8 +330,13 @@ public class DealListFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] s) {
             if(s == null){
-                Toast.makeText(getActivity(), "Barcode for " + s[0] + " or " + s[1] + " or " + s[2] + " not found",
-                        Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(getActivity(), "Barcode for " + s[0] + " or " + s[1] + " or " + s[2] + " not found",
+                            Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Not a Valid Barcode",
+                            Toast.LENGTH_SHORT).show();
+                }
                 //updateUI();
             }else {
                 Log.i(TAG, "THis is the returned value: " + s[0] + " and " + s[1] + " and " + s[2]);
