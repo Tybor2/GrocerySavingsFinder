@@ -256,6 +256,7 @@ public class DealListFragment extends Fragment {
             mDeal = deal;
             mNameTextView.setText(mDeal.getItem());
             mDealTextView.setText(mDeal.getDeal());
+            mStoreTextView.setText(mDeal.getStore());
 
             Picasso.get().load(mDeal.getImage())
                     .placeholder(R.mipmap.ic_app_icon)

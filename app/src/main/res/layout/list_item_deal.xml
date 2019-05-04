@@ -11,7 +11,7 @@
     <TextView
 
         android:id="@+id/item_name"
-        android:layout_width="322dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="Item Name"
@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/deal_image"
-        android:layout_width="52dp"
-        android:layout_height="43dp"
+        android:layout_width="65dp"
+        android:layout_height="58dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,14 +35,24 @@
     <TextView
 
         android:id="@+id/item_deal"
-        android:layout_width="320dp"
-        android:layout_height="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Item Deal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deal_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_name" />
+
+    <TextView
+        android:id="@+id/deal_store"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Item Location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deal_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_deal" />
 
 </android.support.constraint.ConstraintLayout>
