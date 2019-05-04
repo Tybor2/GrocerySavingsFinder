@@ -1,5 +1,6 @@
 package com.example.android.grocerysavingsfinder;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -156,8 +157,6 @@ public class DealListFragment extends Fragment {
                 updateUI();
                 return true;
             case R.id.refresh:
-                //Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
-                //startActivity(intent);
                 DealCollection dealCollection = DealCollection.get(getActivity());
                 dealCollection.refreshItems(getActivity());
                 QueryPreferences.setStoredQuery(getActivity(), null);
@@ -314,6 +313,7 @@ public class DealListFragment extends Fragment {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class FetchItemsTask extends AsyncTask<String, Void, String[]> {
 
         @Override
@@ -331,9 +331,8 @@ public class DealListFragment extends Fragment {
                     Toast.makeText(getActivity(), "Not a Valid Barcode",
                             Toast.LENGTH_SHORT).show();
                 }
-                //updateUI();
             }else {
-                Log.i(TAG, "THis is the returned value: " + s[0] + " and " + s[1] + " and " + s[2]);
+                Log.i(TAG, "This is the returned value: " + s[0] + " and " + s[1] + " and " + s[2] + " and " + s[3]);
                 updateUI(s);
             }
         }

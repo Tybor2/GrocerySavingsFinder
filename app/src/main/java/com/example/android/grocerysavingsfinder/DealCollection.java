@@ -109,7 +109,7 @@ public class DealCollection {
 
     public List<Deal> searchDeals(String[] queryStrings) {
         List<Deal> deals = new ArrayList<>();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             String queryString = "%" + queryStrings[i] + "%";
             DealCursorWrapper cursor = queryDeals(
                     DealTable.Cols.ITEM  + " LIKE ? OR " +

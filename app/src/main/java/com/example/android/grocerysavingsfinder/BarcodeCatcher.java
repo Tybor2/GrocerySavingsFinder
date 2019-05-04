@@ -65,12 +65,12 @@ public class BarcodeCatcher {
     }
 
     public String[] fetchItems(String code) {
-        if(code.matches("[0-9]+") == false || code.length() < 9 || code.length() > 9) {
+        if(code.matches("[0-9]+") == false || code.length() < 9 || code.length() > 13) {
             Log.d(TAG, "Not a valid barcode");
             return null;
         }
 
-        String[] result = new String[3];
+        String[] result = new String[4];
         String data;
         try {
             String url = Uri.parse("https://api.barcodelookup.com/v2/products")
@@ -90,7 +90,9 @@ public class BarcodeCatcher {
             result[0] = jsonItem.getJSONObject(0).getString("brand");
             result[1] = jsonItem.getJSONObject(0).getString("manufacturer");
             String[] name = jsonItem.getJSONObject(0).getString("product_name").split(" ");
-            result[2] = name[0] + " " + name[1];
+            result[2] = name[0];
+            result[3] = name[1];
+            Log.d(TAG, result[0] + ", " + result[1] + ", " + result[2] + ", " + result[3]);
             return result;
         } catch (JSONException je) {
             je.printStackTrace();
