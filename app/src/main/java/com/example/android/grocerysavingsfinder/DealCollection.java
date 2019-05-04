@@ -102,6 +102,7 @@ public class DealCollection {
         } finally {
             cursor.close();
         }
+
         return deals;
 
 
@@ -117,6 +118,7 @@ public class DealCollection {
                             DealTable.Cols.DEAL + " LIKE ?",
                     new String[] {queryString, queryString, queryString}
             );
+            //cursor = mDatabase.queryDeals("SELECT " + DealTable.Cols.ITEM + " FROM Deals ORDER BY " + DealTable.Cols.ITEM);
 
             try {
                 cursor.moveToFirst();
@@ -142,6 +144,7 @@ public class DealCollection {
         //context.deleteDatabase("Deals");
         mDatabase = new DealCollectionHelper(con)
                 .getWritableDatabase();
+
         mDatabase.execSQL("delete from "+ TABLE_NAME);
         for (int j = 0; j < 2; j++) {
             try {
@@ -178,19 +181,16 @@ public class DealCollection {
                     deal.setStore(jsonItem.getString("store").trim());
                     deal.setNotes(jsonItem.getString("notes").trim());
                     deal.setImage(jsonItem.getString("imageURL"));
-                    /**if(jsonItem.getString("store") != "Publix") {
-                        deal.setImage(jsonItem.getString("imageURL"));
-                    }else {
-                        deal.setImage("https://a277cd14703f30274b11-9b2d31aea35db21db0dc185237f55bd4.ssl.cf1.rackcdn.com//sm_4334889.jpg");
-                    }**/
                     addDeal(deal);
                 }
 
             } catch (JSONException je) {
                 je.printStackTrace();
             }
+
+
         }
-        //return null;
+
     }
 
 
@@ -212,9 +212,8 @@ public class DealCollection {
                 whereArgs,
                 null,
                 null,
-                null
+                DealTable.Cols.ITEM
         );
-
         return new DealCursorWrapper(cursor);
     }
 

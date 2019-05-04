@@ -115,14 +115,6 @@ public class DealListFragment extends Fragment {
             }
         });
 
-        /**searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                updateUI();
-                return false;
-            }
-        });**/
-
     }
 
     public void onBackPressed() {
@@ -131,27 +123,8 @@ public class DealListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /**
-        switch (item.getItemId()) {
-            case R.id.refresh:
-                Deal deal = new Deal();
-                DealCollection.get(getActivity()).addDeal(deal);
-                Intent intent = DealPagerActivity
-                        .newIntent(getActivity(), deal.getId());
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }**/
 
-
-        //DealCollection.get(getActivity()).refreshItems(getContext());
-
-            //dealCollection.refreshItems(getContext());
         switch ( (item.getItemId())) {
-            /**case R.id.menu_item_search:
-                updateUI(QueryPreferences.getStoredQuery(getActivity()));
-                return true;**/
             case R.id.menu_item_clear:
                 QueryPreferences.setStoredQuery(getActivity(), null);
                 updateUI();
@@ -183,11 +156,9 @@ public class DealListFragment extends Fragment {
     }
 
     private void updateUI() {
-
         DealCollection dealCollection = DealCollection.get(getActivity());
-        //List<Deal> deals = dealCollection.getDeals();
         String query = QueryPreferences.getStoredQuery(getActivity());
-        List<Deal> deals = dealCollection.getDeals();
+        List<Deal> deals;
         if(query == null)
             deals = dealCollection.getDeals();
         else
