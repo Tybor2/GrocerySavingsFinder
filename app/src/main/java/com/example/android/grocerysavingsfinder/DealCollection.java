@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.Tag;
+import android.util.Log;
 
 import com.example.android.grocerysavingsfinder.database.DealCollectionHelper;
 import com.example.android.grocerysavingsfinder.database.DealCursorWrapper;
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -109,7 +112,8 @@ public class DealCollection {
     }
 
     public List<Deal> searchDeals(String[] queryStrings) {
-        List<Deal> deals = new ArrayList<>();
+        //List<Deal> deals = new ArrayList<>();
+        HashSet<Deal> deals = new HashSet<Deal>();
         for(int i = 0; i < 4; i++) {
             String queryString = "%" + queryStrings[i] + "%";
             DealCursorWrapper cursor = queryDeals(
@@ -122,15 +126,31 @@ public class DealCollection {
 
             try {
                 cursor.moveToFirst();
+
                 while(!cursor.isAfterLast()) {
-                    deals.add(cursor.getDeal());
+                    boolean found = false;
+                    for (Deal d: deals) {
+                        Deal deal = cursor.getDeal();
+                        Log.e("DealCollection", "Checking deal " + d.getItem() + " with " + deal.getItem());
+
+                        if(d.getItem().equals(deal.getItem()) && d.getDeal().equals(deal.getDeal()) && d.getStore().equals(deal.getStore())){
+                            //cursor.moveToNext();
+                            Log.e("DealCOllection", "FOund");
+                            found = true;
+                            break;
+                        }
+
+                    }
+                    if(!found)
+                        deals.add(cursor.getDeal());
                     cursor.moveToNext();
                 }
             } finally {
                 cursor.close();
             }
         }
-        return deals;
+
+        return new ArrayList<>(deals);
 
 
     }
