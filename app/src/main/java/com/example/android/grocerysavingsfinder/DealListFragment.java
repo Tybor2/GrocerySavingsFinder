@@ -305,6 +305,7 @@ public class DealListFragment extends Fragment {
                 }
             }else {
                 Log.i(TAG, "This is the returned value: " + s[0] + " and " + s[1] + " and " + s[2] + " and " + s[3]);
+                //`QueryPreferences.setStoredQuery(getActivity(), s[0]);
                 updateUI(s);
             }
         }
