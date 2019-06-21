@@ -55,4 +55,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_deal" />
 
+
+
+
 </android.support.constraint.ConstraintLayout>
+
