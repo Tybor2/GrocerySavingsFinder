@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Savings Spotter</string>
+    <string name="deal_expire">Fecha de vencimiento</string>
+    <string name="deal_expire_label">Vence:</string>
+    <string name="deal_store">Tienda disponible en:</string>
+    <string name="deal_store_label">Disponible en:</string>
+    <string name="filter">Filtrar</string>
+    <string name="filter_all">Mostrar todo</string>
+    <string name="hide_subtitle">Ocultar subtitulo</string>
+    <string name="item_deal">Ahorro en el artículo</string>
+    <string name="item_deal_label">Ahorro</string>
+    <string name="item_name">Nombre del artículo</string>
+    <string name="notes_section">Notas especiales</string>
+    <string name="notes_section_label">Notas especiales:</string>
+    <string name="refresh_deals">Ahorro de actualización</string>
+    <string name="search">Buscar</string>
+    <string name="search_barcode">Buscar codigo de barras</string>
+    <string name="show_favorites">Favorito</string>
+    <string name="show_subtitle">Mostrar subtitulo</string>
+    <string name="filter_ht">Harris Teeter</string>
+    <string name="filter_publix">Publix</string>
+    <string name="filter_walmart">Walmart</string>
+    <string name="barcode_launch">Escanear código de barras</string>
+    <string name="change_zip">Establecer código postal</string>
+    <string name="clear_search">Borrar búsqueda</string>
+</resources>

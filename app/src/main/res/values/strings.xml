@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Savings Spotter</string>
+    <string name="app_name" translatable="false">Savings Spotter</string>
     <string name="item_name">Name of Item</string>
     <string name="item_deal">Deal on Item</string>
     <string name="item_deal_label">Deal:</string>
@@ -15,5 +15,13 @@
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="show_favorites">Favorites</string>
 
-
+    <string name="refresh_deals">Refresh Deals</string>
+    <string name="search_barcode">Search Barcode</string>
+    <string name="search">Search</string>
+    <string name="clear_search">Clear Search</string>
+    <string name="filter">Filter</string>
+    <string name="filter_all">Show All</string>
+    <string name="filter_ht" translatable="false">Harris Teeter</string>
+    <string name="filter_publix" translatable="false">Publix</string>
+    <string name="filter_walmart" translatable="false">Walmart</string>
 </resources>

@@ -3,47 +3,47 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/refresh"
-        android:title="Refresh Deals"
+        android:title="@string/refresh_deals"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/barcode_search"
-        android:title="Search Barcode"
+        android:title="@string/search_barcode"
         android:icon="@drawable/barcodeicon"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_item_search"
-        android:title="Search"
+        android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_item_clear"
-        android:title="Clear Search"
+        android:title="@string/clear_search"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/filter"
-        android:title="Filter"
+        android:title="@string/filter"
         app:showAsAction="never" >
 
         <menu>
 
             <item
                 android:id="@+id/filter_all"
-                android:title="Show All"/>
+                android:title="@string/filter_all"/>
             <item
                 android:id="@+id/filter_ht"
-                android:title="Harris Teeter"/>
+                android:title="@string/filter_ht"/>
 
             <item
                 android:id="@+id/filter_publix"
-                android:title="Publix"/>
+                android:title="@string/filter_publix"/>
 
             <item
                 android:id="@+id/filter_walmart"
-                android:title="Walmart"/>
+                android:title="@string/filter_walmart"/>
         </menu>
 
     </item>
