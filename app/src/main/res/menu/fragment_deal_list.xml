@@ -31,12 +31,19 @@
         <menu>
 
             <item
+                android:id="@+id/filter_all"
+                android:title="Show All"/>
+            <item
                 android:id="@+id/filter_ht"
                 android:title="Harris Teeter"/>
 
             <item
                 android:id="@+id/filter_publix"
                 android:title="Publix"/>
+
+            <item
+                android:id="@+id/filter_walmart"
+                android:title="Walmart"/>
         </menu>
 
     </item>

@@ -166,13 +166,15 @@ public class DealCollection {
                 .getWritableDatabase();
 
         mDatabase.execSQL("delete from "+ TABLE_NAME);
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < 3; j++) {
             try {
                 InputStream is;
                 if(j == 0)
                     is = context.getAssets().open("dataHT.json");
-                else
+                else if(j == 1)
                     is = context.getAssets().open("dataPublix.json");
+                else
+                    is = context.getAssets().open("dataWalmart.json");
                 size = is.available();
 
                 byte[] buffer = new byte[size];

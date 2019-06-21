@@ -142,11 +142,19 @@ public class DealListFragment extends Fragment {
                 dialog.setTargetFragment(DealListFragment.this, REQUEST_CODE);
                 dialog.show(manager, "Enter Barcode");
                 return true;
+            case R.id.filter_all:
+                QueryPreferences.setStoredQuery(getActivity(), null);
+                updateUI();
+                return true;
             case R.id.filter_ht:
                 updateUI("Harris Teeter");
                 return true;
             case R.id.filter_publix:
                 updateUI("Publix");
+                return true;
+            case R.id.filter_walmart:
+                updateUI("Walmart");
+                QueryPreferences.setStoredQuery(getActivity(), "Walmart");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
