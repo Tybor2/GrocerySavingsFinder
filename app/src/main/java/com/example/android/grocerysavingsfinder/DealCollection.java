@@ -131,7 +131,7 @@ public class DealCollection {
                     boolean found = false;
                     for (Deal d: deals) {
                         Deal deal = cursor.getDeal();
-                        Log.e("DealCollection", "Checking deal " + d.getItem() + " with " + deal.getItem());
+                        //Log.e("DealCollection", "Checking deal " + d.getItem() + " with " + deal.getItem());
 
                         if(d.getItem().equals(deal.getItem()) && d.getDeal().equals(deal.getDeal()) && d.getStore().equals(deal.getStore())){
                             //cursor.moveToNext();

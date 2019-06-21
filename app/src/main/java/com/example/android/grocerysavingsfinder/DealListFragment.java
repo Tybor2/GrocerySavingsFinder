@@ -128,6 +128,7 @@ public class DealListFragment extends Fragment {
                 searchView.setQuery(query, false);
             }
         });
+        searchView.setQueryHint("Search through items, deals, and stores");
 
     }
 

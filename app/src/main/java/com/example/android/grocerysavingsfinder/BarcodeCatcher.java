@@ -72,7 +72,7 @@ public class BarcodeCatcher {
 
         String[] result = new String[4];
         String data;
-        try {
+        /**try {
             String url = Uri.parse("https://api.barcodelookup.com/v2/products")
                     .buildUpon()
                     .appendQueryParameter("barcode", code)
@@ -83,14 +83,25 @@ public class BarcodeCatcher {
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
             return null;
+        }**/
+
+        try {
+            String url = Uri.parse("https://api.upcitemdb.com/prod/trial/lookup")
+                    .buildUpon()
+                    .appendQueryParameter("upc", code)
+                    .build().toString();
+            data = getUrlString(url);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+            return null;
         }
         try {
             JSONObject jsonBody = new JSONObject(data);
-            JSONArray jsonItem =  (jsonBody.getJSONArray("products"));
+            JSONArray jsonItem =  (jsonBody.getJSONArray("items"));
             result[0] = jsonItem.getJSONObject(0).getString("brand");
-            result[1] = jsonItem.getJSONObject(0).getString("manufacturer");
-            String[] name = jsonItem.getJSONObject(0).getString("product_name").split(" ");
-            result[2] = name[0];
+            result[1] = jsonItem.getJSONObject(0).getString("title");
+            String[] name = jsonItem.getJSONObject(0).getString("title").split(" ");
+            result[2] = name[0] + name[1];
             result[3] = name[1];
             Log.d(TAG, result[0] + ", " + result[1] + ", " + result[2] + ", " + result[3]);
             return result;
